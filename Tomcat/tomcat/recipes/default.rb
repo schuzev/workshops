@@ -18,4 +18,19 @@ user 'tomcat' do
   group 'tomcat'
 end
 
+## Download tomcat
+
+remote_file '/tmp/apache-tomcat-8.0.46.tar.gz' do
+  source 'http://www-us.apache.org/dist/tomcat/tomcat-8/v8.0.46/bin/apache-tomcat-8.0.46.tar.gz'
+  action :create
+end
+
+## Create and set up tomcat directory
+
+directory '/opt/tomcat' do
+  action :create
+  recursive true
+end
+
+
 
