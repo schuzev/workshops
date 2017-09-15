@@ -32,5 +32,26 @@ directory '/opt/tomcat' do
   recursive true
 end
 
+## Extract tomcat 
 
+execute 'extract_tomcat' do
+  command 'sudo tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1'
+  cwd '/tmp'
+end
+
+## Set tomcat directory permissions and ownership
+
+directory '/opt/tomcat/conf' do
+  group 'tomcat'
+  mode '0474'
+end
+
+
+execute 'chmod g+r conf/*' do
+  cwd '/opt/tomcat'
+end
+
+execute 'chown -R tomcat webapps/ work/ temp/ logs/ conf/' do
+  cwd '/opt/tomcat'
+end
 
