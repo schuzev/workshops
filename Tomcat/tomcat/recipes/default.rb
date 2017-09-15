@@ -4,11 +4,9 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 #
-## Install dependencies (jdk)
+## dependency on JDK recipe
 #
-package 'java-1.7.0-openjdk-devel' do
-  action :install
-end
+include_recipe 'tomcat::java'
 #
 ## Create users and groups
 group 'tomcat' do
@@ -16,7 +14,8 @@ group 'tomcat' do
 end 
 
 user 'tomcat' do
-  group :'tomcat'
+  action :create
+  group 'tomcat'
 end
 
 
