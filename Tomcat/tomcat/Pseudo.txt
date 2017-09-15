@@ -1,0 +1,55 @@
+Tomcat role
+
+1) pre-reqs 
+
+- CentOS 7.x
+- 
+
+
+3) Tomcat cookbook
+
+- recipe Java
+
+  -- actions
+     ## install JDK package
+     
+     sudo yum install java-1.7.0-openjdk-devel
+
+- recipe Tomcat
+
+  -- actions
+     ##  download tomcat 
+
+     $ cd /tmp
+     $ wget http://mirror.sdunix.com/apache/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.33.tar.gz
+
+     ## Create users and groups
+
+     $ sudo groupadd chef
+     $ sudo useradd -g chef chef
+
+     
+     ## Create folders,extract and set permissions
+
+     $ sudo mkdir /opt/tomcat
+     $ sudo tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+     #
+     $ cd /opt/tomcat
+     $ sudo chgrp -R chef conf
+     $ sudo chmod g+rwx conf
+     $ sudo chmod g+r conf/*
+     $ sudo chown -R chef webapps/ work/ temp/ logs/ conf/
+
+     ## Set up tomcat service 
+
+     $ sudo vi /etc/systemd/system/tomcat.service
+     $ sudo systemctl daemon-reload
+     $ sudo systemctl start tomcat
+     $ sudo systemctl enable tomcat
+
+     ## Test
+
+     $ curl http://localhost:8080
+
+
+
