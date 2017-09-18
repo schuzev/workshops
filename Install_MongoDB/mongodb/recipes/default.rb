@@ -19,4 +19,9 @@ package 'mongodb-org' do
   action :install
 end
 
+## start and enable the mongod service 
+service 'mongod' do
+  action [ :enable, :start ]
+end
+
 
